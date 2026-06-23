@@ -1,4 +1,5 @@
 const companyModel = require('../models/companyModel');
+const productModel = require('../models/productModel');
 
 const getAllCompanies = async (req, res) => {
 	try {
@@ -42,6 +43,12 @@ const updateCompany = async (req, res) => {
 const deleteCompany = async (req, res) => {
 	try {
 		const { id } = req.params;
+		// Verificar se existem produtos vinculados
+		const count = await productModel.countByCompany(id);
+		if (count > 0) {
+			return res.status(400).json({ error: 'Não é possível deletar empresa com produtos vinculados.' });
+		}
+
 		const removed = await companyModel.remove(id);
 		if (!removed) return res.status(404).json({ error: 'Empresa não encontrada.' });
 		return res.status(204).send();

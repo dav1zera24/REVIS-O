@@ -9,6 +9,7 @@ export default function Products() {
   const [products, setProducts] = useState([]);
   const [nome, setNome] = useState('');
   const [preco, setPreco] = useState('');
+  const [quantidadeEstoque, setQuantidadeEstoque] = useState('');
   const [erro, setErro] = useState('');
   const [loading, setLoading] = useState(false);
   const [refreshTrigger, setRefreshTrigger] = useState(0);
@@ -72,8 +73,8 @@ export default function Products() {
       return;
     }
 
-    if (!nome || preco.trim() === '') {
-      setErro('Nome e preço são obrigatórios.');
+    if (!nome || preco.trim() === '' || quantidadeEstoque.trim() === '') {
+      setErro('Nome, preço e quantidade de estoque são obrigatórios.');
       return;
     }
 
@@ -82,6 +83,7 @@ export default function Products() {
       await api.post('/products', {
         nome,
         preco: Number(preco),
+        quantidade_estoque: Number(quantidadeEstoque),
         company_id: selectedCompanyId,
       });
 
@@ -145,6 +147,7 @@ export default function Products() {
         <form onSubmit={handleSubmit} className="companies-form">
           <input type="text" placeholder="Nome do Produto" value={nome} onChange={(e) => setNome(e.target.value)} required />
           <input type="number" placeholder="Preço" value={preco} onChange={(e) => setPreco(e.target.value)} min="0" step="0.01" required />
+          <input type="number" placeholder="Quantidade em Estoque" value={quantidadeEstoque} onChange={(e) => setQuantidadeEstoque(e.target.value)} min="0" step="1" required />
           <button type="submit" disabled={loading} className="btn-success">
             {loading ? 'Salvando...' : 'Cadastrar Produto'}
           </button>
@@ -160,6 +163,7 @@ export default function Products() {
             <tr>
               <th>ID</th>
               <th>Nome</th>
+              <th>Fornecedor</th>
               <th>Preço</th>
               <th>Ações</th>
             </tr>
@@ -169,6 +173,7 @@ export default function Products() {
               <tr key={product.id}>
                 <td>{product.id}</td>
                 <td><strong>{product.nome}</strong></td>
+                <td>{product.fornecedor_nome || (companies.find(c => String(c.id) === String(product.empresa_id))?.nome) || '-'}</td>
                 <td>{(() => {
                   const price = Number(product.preco);
                   if (!Number.isFinite(price)) return product.preco !== undefined ? String(product.preco) : '-';
