@@ -5,6 +5,7 @@ require('dotenv').config();
 const pool = require('./config/db');
 const authRoutes = require('./routes/authRoutes');
 const companyRoutes = require('./routes/companyRoutes'); // Importação correta
+const productRoutes = require('./routes/productRoutes');
 
 const app = express(); // Primeiro inicializa o app!
 
@@ -15,6 +16,7 @@ app.use(express.json());
 // Vinculação das Rotas (Depois que o app já existe)
 app.use('/api/auth', authRoutes);
 app.use('/api/companies', companyRoutes); 
+app.use('/api/products', productRoutes);
 
 app.get('/', (req, res) => {
   res.json({ message: 'API do Sistema de Gestão de Fornecimento (SGF) rodando com sucesso!' });
