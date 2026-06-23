@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route, Navigate, useNavigate } from 'react-router-dom';
 import Login from './pages/Login';
+import Register from './pages/Register';
 import Companies from './pages/Companies'; // 1. Importa a nova tela
 import PrivateRoute from './routes/PrivateRoute';
 
@@ -39,6 +40,7 @@ export default function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
         
         {/* Rotas Protegidas */}
         <Route path="/dashboard" element={<PrivateRoute><DashboardMock /></PrivateRoute>} />
