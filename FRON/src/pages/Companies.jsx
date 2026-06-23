@@ -63,14 +63,14 @@ export default function Companies() {
   return (
     <div className="page-container">
       <div className="companies-header">
-        <h2>🏢 Gerenciamento de Fornecedores / Empresas</h2>
+        <h2>Gerenciamento de Fornecedores / Empresas</h2>
         <div>
           <button onClick={() => navigate('/dashboard')} className="btn-secondary" style={{ marginRight: '10px' }}>Voltar para Home</button>
           <button onClick={() => { localStorage.clear(); navigate('/login'); }} className="btn-danger">Sair</button>
         </div>
       </div>
 
-      {erro && <p style={{ color: 'red', fontWeight: 'bold' }}>⚠️ {erro}</p>}
+      {erro && <p style={{ color: 'red', fontWeight: 'bold' }}>{erro}</p>}
 
       <div className="companies-box">
         <h3>Adicionar Nova Marca/Empresa</h3>
@@ -105,7 +105,8 @@ export default function Companies() {
                 <td><strong>{company.nome}</strong></td>
                 <td>{company.cnpj}</td>
                 <td>{company.telefone || 'Não informado'}</td>
-                <td>
+                <td style={{ display: 'flex', gap: '8px' }}>
+                  <button onClick={() => navigate(`/products?companyId=${company.id}`)} className="btn-primary">Produtos</button>
                   <button onClick={() => handleDelete(company.id)} className="btn-danger">Deletar</button>
                 </td>
               </tr>

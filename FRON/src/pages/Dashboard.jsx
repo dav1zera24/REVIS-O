@@ -14,7 +14,7 @@ export default function Dashboard() {
     <div className="page-container">
       {/* Cabeçalho da Home */}
       <div className="companies-header">
-        <h2>🏠 Painel Principal (SGF)</h2>
+        <h2>Painel Principal (SGF)</h2>
         <div>
           <button onClick={handleLogout} className="btn-danger">
             Sair
@@ -46,16 +46,16 @@ export default function Dashboard() {
           </button>
         </div>
 
-        {/* Card: Outros Módulos (Espaço reservado para o seu app crescer) */}
-        <div className="companies-box" style={{ flex: '1', minWidth: '250px', maxWidth: '300px', marginBottom: 0, opacity: 0.7 }}>
+        {/* Card: Módulo de Produtos */}
+        <div className="companies-box" style={{ flex: '1', minWidth: '250px', maxWidth: '300px', marginBottom: 0 }}>
           <h3>Produtos</h3>
-          <p>Módulo de vinculação de produtos e controle de estoque (Em breve).</p>
+          <p>Gerencie produtos vinculados a cada empresa cadastrada.</p>
           <button 
-            disabled 
-            className="btn-secondary"
+            onClick={() => navigate('/products')} 
+            className="btn-primary"
             style={{ width: '100%', marginTop: '10px' }}
           >
-            Bloqueado
+            Acessar Produtos
           </button>
         </div>
 

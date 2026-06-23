@@ -2,11 +2,16 @@ const productModel = require('../models/productModel');
 
 const getAllProducts = async (req, res) => {
   try {
-    const products = await productModel.getAll();
+    let { companyId } = req.query;
+    if (companyId !== undefined) {
+      companyId = parseInt(companyId, 10);
+      if (Number.isNaN(companyId)) companyId = undefined;
+    }
+    const products = await productModel.getAll(companyId);
     return res.status(200).json(products);
   } catch (error) {
-    console.error(error);
-    return res.status(500).json({ error: 'Erro ao buscar produtos.' });
+    console.error('Erro em getAllProducts:', error);
+    return res.status(500).json({ error: 'Erro ao buscar produtos.', details: error.message });
   }
 };
 
