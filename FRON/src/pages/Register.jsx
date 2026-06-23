@@ -1,17 +1,19 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import api from '../services/api';
+import '../styles/styles.css'; // Importando o CSS global
 
 export default function Register() {
   const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
+  const [loading, setLoading] = useState(false);
 
   const handleRegister = async (e) => {
     e.preventDefault();
+    setLoading(true);
     try {
       await api.post('/auth/register', { email, senha });
-      // Auto-login após registro
       const res = await api.post('/auth/login', { email, senha });
       const { token } = res.data;
       localStorage.setItem('@SGF:token', token);
@@ -20,19 +22,35 @@ export default function Register() {
       console.error(error);
       const msg = error?.response?.data?.error || 'Erro no cadastro.';
       alert(msg);
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
-    <div style={{ padding: '20px' }}>
+    <div className="page-container">
       <h1>Cadastro</h1>
-      <form onSubmit={handleRegister} style={{ display: 'flex', flexDirection: 'column', gap: '8px', maxWidth: 360 }}>
-        <input placeholder="E-mail" value={email} onChange={(e) => setEmail(e.target.value)} />
-        <input placeholder="Senha" type="password" value={senha} onChange={(e) => setSenha(e.target.value)} />
-        <button type="submit" style={{ padding: '8px 12px', background: '#198754', color: 'white', border: 'none', borderRadius: '4px' }}>
-          Cadastrar
+      <form onSubmit={handleRegister} className="auth-form">
+        <input 
+          placeholder="E-mail" 
+          value={email} 
+          onChange={(e) => setEmail(e.target.value)} 
+          required 
+        />
+        <input 
+          placeholder="Senha" 
+          type="password" 
+          value={senha} 
+          onChange={(e) => setSenha(e.target.value)} 
+          required 
+        />
+        <button type="submit" disabled={loading} className="btn-success">
+          {loading ? 'Cadastrando...' : 'Cadastrar'}
         </button>
       </form>
+      <p>
+        Já tem uma conta? <Link to="/login">Voltar para o Login</Link>
+      </p>
     </div>
   );
 }
