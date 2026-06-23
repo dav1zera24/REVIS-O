@@ -1,0 +1,246 @@
+/* ==========================================================================
+   1. RESET, LAYOUT CENTRALIZADO & CONFIGURAÇÕES GERAIS
+   ========================================================================== */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  background-color: #f4f6f9;
+  color: #333333;
+  line-height: 1.5;
+  
+  /* Centralização total na tela */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+/* Container principal expandido para ocupar as laterais */
+.page-container {
+  padding: 40px 20px;
+  width: 95%; 
+  max-width: 1600px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center; 
+  animation: fadeIn 0.4s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Títulos Ampliados */
+h1, h2, h3 {
+  color: #1e293b;
+  font-weight: 700;
+  text-align: center;
+}
+
+h1 { font-size: 3rem; margin-bottom: 24px; } 
+h2 { font-size: 2.2rem; }
+h3 { font-size: 1.6rem; margin-bottom: 20px; }
+
+p {
+  font-size: 1.25rem; 
+  color: #475569;
+  text-align: center;
+}
+
+a {
+  color: #0d6efd;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 1.25rem;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+a:hover {
+  color: #0a58ca;
+  text-decoration: underline;
+}
+
+/* ==========================================================================
+   2. INPUTS & BOTÕES PADRONIZADOS
+   ========================================================================== */
+input {
+  width: 100%;
+  padding: 18px 22px; 
+  background-color: #ffffff;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  font-size: 18px; 
+  color: #1e293b;
+  transition: all 0.2s ease;
+}
+
+input:focus {
+  outline: none;
+  border-color: #0d6efd;
+  box-shadow: 0 0 0 4px rgba(13, 110, 253, 0.15);
+}
+
+button {
+  padding: 16px 28px; 
+  font-size: 16px;
+  font-weight: 700;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px -2px rgba(0, 0, 0, 0.15);
+}
+
+button:active {
+  transform: translateY(0);
+}
+
+/* Estilos de cores dos botões */
+.btn-primary { background-color: #0d6efd; color: #ffffff; }
+.btn-primary:hover { background-color: #0b58ca; }
+
+.btn-success { background-color: #198754; color: #ffffff; }
+.btn-success:hover { background-color: #157347; }
+
+.btn-danger { background-color: #dc3545; color: #ffffff; }
+.btn-danger:hover { background-color: #bb2d3b; }
+
+.btn-secondary { 
+  background-color: #ffffff; 
+  color: #475569; 
+  border: 1px solid #cbd5e1; 
+}
+.btn-secondary:hover { background-color: #f8fafc; color: #1e293b; }
+
+/* ==========================================================================
+   3. CARD DE AUTENTICAÇÃO TOTALMENTE RETANGULAR (ESTICADO)
+   ========================================================================== */
+.auth-form {
+  background: #ffffff;
+  padding: 50px 60px; 
+  border-radius: 16px;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  width: 100%;
+  
+  /* Mudança crucial: max-width aumentado para 800px para criar o formato retangular */
+  max-width: 800px; 
+  margin: 30px 0;
+}
+
+.auth-form button {
+  width: 100%;
+  padding: 18px;
+  font-size: 18px;
+}
+
+/* ==========================================================================
+   4. CABEÇALHO INTERNO (ALINHAMENTO EM LINHA PERFEITO)
+   ========================================================================== */
+.companies-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%; 
+  background: #ffffff;
+  padding: 24px 32px;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+  margin-bottom: 35px;
+}
+
+/* Alinha horizontalmente a div que segura os botões Voltar e Sair */
+.companies-header > div,
+.companies-header div {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  gap: 12px !important; 
+}
+
+/* Deixa os botões simétricos e com a mesma altura */
+.companies-header button,
+.companies-header .btn-secondary,
+.companies-header .btn-danger {
+  height: 48px !important;       
+  min-width: 160px !important;   
+  padding: 0 24px !important;    
+  font-size: 15px !important;
+  margin: 0 !important;          
+}
+
+/* ==========================================================================
+   5. PAINÉIS INTERNOS E TABELAS ESTICADAS
+   ========================================================================== */
+.companies-box {
+  background: #ffffff;
+  padding: 32px;
+  width: 100%; 
+  border-radius: 12px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+  border: 1px solid #e2e8f0;
+  margin-bottom: 35px;
+}
+
+.companies-form {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  align-items: center;
+  width: 100%;
+}
+
+.companies-form input {
+  flex: 1;
+  min-width: 250px;
+}
+
+.companies-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  background-color: #ffffff;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+  border: 1px solid #e2e8f0;
+  margin-top: 15px;
+}
+
+.companies-table th, 
+.companies-table td {
+  padding: 20px 24px; 
+  font-size: 16px;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.companies-table th {
+  background-color: #f8fafc;
+  color: #475569;
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 13px;
+  letter-spacing: 0.06em;
+}
+
+.companies-table tbody tr:hover {
+  background-color: #f1f5f9;
+}
