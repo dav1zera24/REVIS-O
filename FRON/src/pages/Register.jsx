@@ -8,9 +8,17 @@ export default function Register() {
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
   const [loading, setLoading] = useState(false);
+  const [erro, setErro] = useState('');
 
   const handleRegister = async (e) => {
     e.preventDefault();
+    setErro('');
+
+    if (!email.trim() || !senha.trim()) {
+      setErro('E-mail e senha são obrigatórios.');
+      return;
+    }
+
     setLoading(true);
     try {
       await api.post('/auth/register', { email, senha });
@@ -20,8 +28,7 @@ export default function Register() {
       navigate('/dashboard');
     } catch (error) {
       console.error(error);
-      const msg = error?.response?.data?.error || 'Erro no cadastro.';
-      alert(msg);
+      setErro(error?.response?.data?.error || 'Erro no cadastro.');
     } finally {
       setLoading(false);
     }
@@ -48,7 +55,8 @@ export default function Register() {
           {loading ? 'Cadastrando...' : 'Cadastrar'}
         </button>
       </form>
-      <p>
+      {erro && <p style={{ color: 'red', marginTop: '16px' }}>{erro}</p>}
+      <p style={{ marginTop: '18px' }}>
         Já tem uma conta? <Link to="/login">Voltar para o Login</Link>
       </p>
     </div>
